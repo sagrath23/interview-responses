@@ -1,10 +1,20 @@
 //////// 1. Fundamentos ////////
 
 // qué  de programación conoces?
+// OOP: Herencia, polimorfismo, encapsulamiento y abstraccion.
+// SOLID: principios para construir software 
+// Single Resposibility
+// Open/Close
+// Liskov
+// Interface Segregation
+// Dependency Injection
 
+// Funcional: React incorpora ciertas ideas de FP
+// inmutabilidad, pure functions.
 // por qué es mejor componer objetos en lugar de herencia clasica?
+// crecimiento de los components, que expande el arbol de herencia, mientras que si tengo un componente isolado, lo pueod reutilizar en diferentes secciones.
 // Herencia
-class Shinobi extends Human {
+class Shinobi{
   shadowCloneJutsu() {
     console.log('Kage Bunshin no Jutsu!');
   }
@@ -65,26 +75,35 @@ sasuke.chidori(); // ???
 //////// 2. Generalidades ////////
 
 // Sabes que es una REST API??? Conoces los niveles de madurez de una RESTful API?
-
+// interfaz para construir una app usando REST
+// HATEOAS
 // Sabes que diferencia hay entre localStorage y sessionStorage?
-
+// session: se borra cuando se cierra el tab
+// local: es persistente, general al browser
 // Sabes que es CORS?
-
+// Mecanismo para verificar origines de las peticiones. 
 // Cómo aseguras que tu API solo sea utilizada por un usuario verificado?
-
+// Auth: JWT
 // Sabes que es un patron de diseño? Conoces alguno?
-
+// maneras estandar de resolver problemas comunes
+// creacionales: singleton, fabric, builder
+// estructurales: pattern
+// behavioral: specification, Strategy
 
 //////// 3. NPM ////////
 
 // Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
-
+// manager de paquetes:
+// npm i, npm run build
 // sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
-
+// 1.2.3: especifica
+// ^1.2.3: 2.1.0?
+// ~
 // dependencies y devDependencies???
-
+// devDependencies: solo para desarrollo
+// dependencies: dependencias en general
 // peer dependencies??
-
+// son dependencias para indicar dependencias de librerias para poder funcionar. 
 
 //////// 4. Javascript ////////
 
@@ -115,16 +134,23 @@ color2.color = 'purple';
 
 color1.print();
 color2.print();
+// yellow
+// red
 
 // cual es la salida de este código 
-a();
+var b
 function a() {
   console.log("a");
 }
+a();
+
 b();
-var b = function() {
+b = function() {
   console.log("b");
 }
+// a
+// b
+// b is not a function
 
 // cual es la salida de este object.hi()??
 let object = {
@@ -137,6 +163,9 @@ let object = {
 
 object.hi();
 
+// Hi, baz some
+// Hi, undefined undefined
+
 // cual es la salida de estos ciclos?
 const a = { foo: 'bar', baz: 'yell', res: 'bal'};
 const b = ['kool', 'botz', 'tezt'];
@@ -144,18 +173,26 @@ const b = ['kool', 'botz', 'tezt'];
 for(let some in a) {
   console.log(some);
 }
+// OK
+//foo, baz, res
 
 for(let some in b) {
   console.log(some);
 }
+// OK
+//0, 1, 2
 
 for(let some of a) {
   console.log(some);
 }
+// error a is not iterable
+// 'bar', 'yell', 'bal'
 
 for(let some of b) {
   console.log(some);
 }
+// OK
+ //'kool', 'botz', 'tezt'
 
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
@@ -176,14 +213,27 @@ var a = 6;
 })();
 console.log(a);
 
+// 1, 2, 'baz', 6, 4, 3
+
 // puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader = void 0;
+const fileReader = new Promise((resolve, reject) => resolve('some'));
 
 fileReader.then((data) => console.log(data, 'content')); // some, content
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
-  constructor() {}
+  constructor() {
+    this.number = 0;
+  }
+
+  add = (n) => { 
+    this.number = this.number + n;
+    return this;
+  }
+
+  getTotal = () => {
+    return this.number;
+  }
 }
 
 const foo = new Foo();
@@ -199,24 +249,30 @@ sum(3,5) // 8
 //////// 5. Unit testing ////////
 
 // Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
-
+// es una prueba que permite probar una unidad (componente). cada prueba es independiente para un componente.
+// unit tests evitan regresion
 // Qué frameworks de Unit Tests conoces??
-
+// Jest 
 // Sabes qué diferencias existen entre un mock y un stub?
-
+// stub tiene informacion fija, mientras que un mock esta orientado a falsear una implementación de forma conveniente para probar algo.
 // Por qué una prueba unitaria debe ejecutarse de forma aislada?
-
+// cada capa deberia tener su propia prueba.
 // Conoces sobre Shallow Render??
-
+// enzyme 
+// tiene que ver con el renderizado 
 
 //////// 6. React ////////
 // sabes que es el vitualDOM?
-
+// es una representación en memoria para poder hacer el proceso de renderizado mas eficiente, ya que manipular el dom real es costoso. El proceso se llama reconciliacion.
 // sabes que es el lifecycle de React? Puedes describirlo?
-
+// ciclo que siguen los componentes en el proceso de renderizacion
+// montado, actualizacion y desmontado.
 // qué diferencia hay entre estos??
 class Component extends React.Component {
   ...
+  componentDidUpdate
+  
+  componentDidMount
 
   render() {
     return (<div>Hi</div>);
@@ -234,7 +290,9 @@ class Component extends React.PureComponent {
 const Component = () => {
   return (<div>Hi</div>);
 }
+// functional -> only props
 // Hooks
+// No
 
 // que consideras que es un hook? con cuales has trabajado??
 
@@ -248,15 +306,16 @@ const Component = ({ a }) => {
 };
 
 // Puedes describir que es un HOC?
+// son componentes que facilitan la reutilización de components. 
 
 // Has trabajado con Context en React?
-
+// No
 // Que papel cumple el Provider al usar Context en React?
 
 // y el Consumer?
 
 // Sabes para que se sirven los refs en React? 
-
+// referencia elementos como div o input. 
 // portals: 
 
 // suspense: 
@@ -265,30 +324,42 @@ const Component = ({ a }) => {
 //////// 7. Redux ////////
 
 // Puedes describir el patron arquitectonico que sigue redux?
+// flux: observer modificado. single source of truth, unidireccional.
 
 // Puedes describir los conceptos base de redux?
-
+// reducers, actions, dispatcher & store, views
+// reducer: atrapan las acciones a partir del tipo y modifican el state que corresponda.
 // Que usas para conectar redux con un componente React?
-
+// react-redux with HOC connect
 // Sabes que es un middleware?
+// agrega funcionalidad intermedia
 
-
+//redux-thunks: intercepta acciones para agregar operaciones intermedias.
 //////// 8. CSS ////////
-// flexbox: 
+// flexbox:
+//  
 // flex-grow? flex-direction
 
 // grid
 
 // preprocesadores
-
+// SaSS -> reducir la estaticidad de CSS incorporando variables, etc.
 // puedes describir como se comportan estos selectores CSS?
 .div {
   color: cyan;
 
   &:hover {
-    color: red
+    color: red;
   }
 }
+
+// 
+!important;
+div {}
+.class {}
+#id {}
+
+<div class="class" id="id" style="" />
 
 //////// 9. Node.js ////////
 
