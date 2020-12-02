@@ -25,44 +25,56 @@ const color2 = colorFactory('red');
 color1.color = 'yellow';
 color2.color = 'purple';
 
-color1.print(); // cyan
-color2.print(); // purple
-// yellow
-// red
+color1.print(); cyan // yellow
+color2.print(); red // red
+{ color: 'purple', print: () =>{}}
+
 // cual es la salida de este código 
 function a() {
   console.log("a");
 }
 var b; // undefined
 a();
-// "a"
+// console.log("a")
 b();
 b = function() {
   console.log("b");
 }
-// definicion de la funcion 
-// b is not a function.
-// Let, var & Const
-// var = scope global // bloque // hoisting
-// No-hoisting
-// let = 
-// const = constante que no cambia
-// referencia a memoria
-const b = {};
-
-b.foo = 'some';
+// console.log("b")
+// b is not a function
 
 // cual es la salida de este object.hi()??
+let object = {
+  hi: () => {
+    var foo = 'baz';
+    var bar = 'some';
+    console.log(`Hi, ${this.foo} ${this.bar}`)
+  }
+};
+
+let object = {
+  foo: 'baz',
+  bar: 'some',
+  hi: function () {
+    console.log(`Hi, ${this.foo} ${this.bar}`)
+  }
+}
+
 let object = {
   foo: 'baz',
   bar: 'some',
   hi: () => {
     console.log(`Hi, ${object.foo} ${object.bar}`)
   }
-};
+}
 
+() => {
+    console.log(`Hi, ${object.foo} ${object.bar}`)
+  }
 object.hi();
-// Hi, undefined undefined
+
+// hi, baz some
+// hi, undefined undefined
 
 // cual es la salida de estos ciclos?
 const a = { foo: 'bar', baz: 'yell', res: 'bal'};
@@ -71,27 +83,33 @@ const b = ['kool', 'botz', 'tezt'];
 for(let some in a) {
   console.log(some);
 }
+
+foo: 'bar', baz: 'yell', res: 'bal'
 // foo, baz, res
 for(let some in b) {
   console.log(some);
 }
-// 
-// 0, 1, 2
+
+'kool', 'botz', 'tezt'
+//0, 1, 2
 for(let some of a) {
   console.log(some);
 }
-// Error
-// a is not iterable
+// a is not an iterable
+// { next: () => ({ done: false, value: 'some'})}
+
 for(let some of b) {
   console.log(some);
 }
-// kool, botz, tezt 
+// kool, botz, tezt
 
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
 (function() {
   const foo = true;
   let a = 2;
+  
+
 
   console.log(1);
   setTimeout(() => {
@@ -105,38 +123,38 @@ var a = 6;
   a = 'tezt';
 })();
 console.log(a);
-
-
-// 1
-// 6 // 2
-// baz 
-// tezt // 6
-// 4 
-// 3 
+// 1, 2, baz, 6, 4, 3
+1
+bar
+2
+4
+baz
+6
 
 // puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader =  async function () {
-  return 'some'
-}
-
 const fileReader = new Promise((resolve, reject) => resolve('some'));
 
-fileReader().then((data) => console.log(data, 'content')); // some, content
+const fileReader = (async () => {
+  return 'some';
+})();
+
+fileReader.then((data) => console.log(data, 'content')); // some, content
+
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
-  
   constructor() {
-    this.total = 1
+    this.value = 0;
   }
-  add(number){
-    this.total += number
 
-    return this; //
+  add(value) {
+    this.value += value;
+
+    return this;
   }
-  
-  getTotal(){
-    return this.total
+
+  getTotal() {
+    return this.value;
   }
 }
 
@@ -149,89 +167,43 @@ foo.add(1).add(2).add(3).add(4).getTotal();// should return 10
 sum(3)(5) // 8
 sum(3,5) // 8
 
-const sum = (a,b) => {
-  if(b){
-    return a + b;
-  }
-
-  return (c) => a + c;
-};
 //////// 2. NPM ////////
 
 // Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
-// gestor de paquetes para Node
-// npm init
-// npm install
-// npm install paquetes
-// npm upgrade 
-// npm uninstall paquete
-// 
 
 // sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
-// 1.2.3 => specific
-// ~1.2.3 => 1.2.x
-// ^1.2.3 => 1.x.x
+
 // dependencies y devDependencies???
-// dependencies = install prod & dev
-// devDep = install prod
+
 // peer dependencies??
-// dependencias de las que dependen mis dependencias
-// 
 
 //////// 3. Fundamentos ////////
 
 // qué  de programación conoces?
-// OOP => Herencia, polimorfismo, encapsulamiento & abstraccion.
-// 
+
 // por qué es mejor componer objetos en lugar de herencia clasica?
-// por rendimiento, al tener la herencia clasica, se heredan funcionalidades que no sean necesarias, que terminan siendo comportamientos de mas, mientras que la composicion te reduce este comportamiento.
 
 //////// 4. Diseño ////////
 
 // SOLID
-//
-//Single resp.
-// open/close 
-// liskov => 
-// Dependency injection
-// DRY
-// Dont repeat yourself 
 
+// DRY
+
+// Dependency Injection
 
 //////// 9. Node.js ////////
 
 // Qué es Node.js??
-// ambiente de desarrollo de JS, runtime env para JS
 
 // Qué librerias nativas de Node.js has utilizado??
-// path, fs
 
 // Cómo manejas variables de entorno y secretos para usarlos en la ejecución de tu programa Node.js?
-// libreria dot.env
-// crear archivos .env => en el .gitignore *.env 
-// process.env.VARIABLE
 
 // Express.js
-// API rest
+
 // middleware
-// algo por lo que pasa una solicitud (verificar auth) 
-// prisma / graphQL
+
 // Qué diferencia existe entre un path  y un query param??
-
-//////// 2. Generalidades ////////
-
-// Sabes que es una REST API??? Conoces los niveles de madurez de una RESTful API?
-
-// Sabes que diferencia hay entre localStorage y sessionStorage?
-
-// Sabes que es CORS?
-
-// Cómo aseguras que tu API solo sea utilizada por un usuario verificado?
-
-// Sabes que es un patron de diseño? Conoces alguno?
-
-
-
 
 
 //////// 5. Unit testing ////////
@@ -327,7 +299,6 @@ const Component = ({ a }) => {
     color: red
   }
 }
-
 
 
 //////// 10. Algoritmia ////////
