@@ -1,55 +1,4 @@
-//////// 1. Fundamentos ////////
-
-// qué paradigmas  de programación conoces?
-// OOP: Herencia, Encapsulamiento, Abstraccion// Polimorfismo
-// FP: se descarta OOP, desarrollo basado en funciones.
-
-// por qué es mejor componer objetos en lugar de herencia clasica?
-// Herencia se usa para no repetir codigo (compartir codigo entre componentes). 
-
-
-//////// 2. Generalidades ////////
-
-// Sabes que es una REST API??? Conoces los niveles de madurez de una RESTful API?
-// es un protocolo para realizar peticion de datos (cliente server) usando metodos HTTP (GET, POST, PUT, DELETE, PATCH)
-
-// Sabes que diferencia hay entre localStorage y sessionStorage?
-// ambos almacenan data en el browser.
-// session: se borra si se cierra el tab.
-// local: se debe hacer clear de la data. 
-
-// Sabes que es CORS?
-// Cross Origin Resource Sharing: aumenta la seguridad de las peticiones. audita que se tengan permisos para consumir un recurso.
-
-// Cómo aseguras que tu API solo sea utilizada por un usuario verificado?
-// Tokens. JWT.
-
-// Sabes que es un patron de diseño? Conoces alguno?
-// Son soluciones a problemas comunes
-// creacionales -> singleton
-// estructurales -> prototypes.
-// de comportamiento -> observer
-
-//////// 3. NPM ////////
-
-// Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
-// manejador de paquetes de Node.js, gestiona las libs de nuestros proyectos. 
-// npm i, npm cache clean, npm audit, npm audit fix
-// npm publish
-
-// sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
-// 1.2.3
-// ~ -> 1.2.x
-// ^ -> 1.x.x
-
-// dependencies y devDependencies???
-//devDep -> solo desarrollo: webpack 
-//dep: parafuncionar.
-
-// peer dependencies??
-// son dependencias necesarias para el setup del proyecto.
-
-//////// 4. Javascript ////////
+//////// 1. Javascript ////////
 
 // cual es la salida de cada console.log
 class Color {
@@ -76,31 +25,42 @@ const color2 = colorFactory('red');
 color1.color = 'yellow';
 color2.color = 'purple';
 
-color1.print(); // yellow
-color2.print(); // red
+color1.print();//yellow
+color2.print();//red
 
 // cual es la salida de este código 
-a();
 function a() {
   console.log("a");
 }
+var b; // undefined
+a();
+
 b();
-var b = function() {
+b = function() {
   console.log("b");
 }
-// a error
+//a
+//b // error
 
+// const, let & var
+// var -> global scope in block
+// const & let -> scope local
+// const -> no deja modificar referencia
+// let -> permite reasignar referencia
 // cual es la salida de este object.hi()??
+const foo = 'Ren';
+const bar = 'Stimpy'
 let object = {
-  foo: 'baz',
-  bar: 'some',
-  hi: function(){
-    console.log(`Hi, ${this.foo} ${this.bar}`)
+  foo: 'Batsy',
+  bar: 'Robin',
+  hi: function ()  {
+    console.log(`Hi, ${this.foo} & ${this.bar}`)
   }
 };
 
-object.hi(); // hi, undefined undefined
-
+object.hi();
+//Hi, Batsy & Robin
+// Hi, undefined & undefined
 // cual es la salida de estos ciclos?
 const a = { foo: 'bar', baz: 'yell', res: 'bal'};
 const b = ['kool', 'botz', 'tezt'];
@@ -108,24 +68,20 @@ const b = ['kool', 'botz', 'tezt'];
 for(let some in a) {
   console.log(some);
 }
-// foo // baz res
-
+//foo, baz, res
 for(let some in b) {
   console.log(some);
 }
-// baz // 0, 1, 2
-
-// next() => ({ done: true/false, value: 'X' })
+//0,1,2
+// next() => ({ value: 'x', done: true })
 for(let some of a) {
   console.log(some);
-}
-// res
-// a is not iterable
-
+}// a is not iterable
+//
 for(let some of b) {
   console.log(some);
-} //
-// kool, botz, tezt
+}
+//kool, botz, tezt
 
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
@@ -145,41 +101,29 @@ var a = 6;
   a = 'tezt';
 })();
 console.log(a);
-
-//1 //2 //baz //6  //4 // 3
-
-
+//1, 2, baz, 6, 4, 3
 // puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader = fetch('url');
+const fileReader = Promise.resolve('some');
+const fileReader = async ()=>"some";
 
-const fileREader = async() => {
-  let res = await mehtod();
-
-  return res;
-}
-
-const fileReader = new Promise((resolved, reject) => { resolved(66)})
-
-fileReader.then((data) => console.log(data, 'content')); // some, content
+fileReader().then((data) => console.log(data, 'content')); // some, content
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
-  constructor(value) {
-    this.value = value; 
+  value = 0;
+  constructor() {
   }
-
-  add(num){
-     this.value += num;
-     return this;
+  add(v){
+    this.value+=v;
+    return this;
   }
-
   getTotal(){
-    console.log(this.value);
+    return this.value;
   }
 }
 
 const foo = new Foo();
-// 1.add(2)
+
 foo.add(1).add(2).add(3).add(4).getTotal();// should return 10
 
 // Punto extra!
@@ -187,147 +131,123 @@ foo.add(1).add(2).add(3).add(4).getTotal();// should return 10
 sum(3)(5) // 8
 sum(3,5) // 8
 
+//////// 2. NPM ////////
 
-//////// 5. Unit testing ////////
-
-// Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
-// si, se realiza una funcion que va a probar un aspecto especifico de la funcion.
- 
-// Qué frameworks de Unit Tests conoces??
-//Jest, @testing-library, karma, cypress (e2e).
-
-// Sabes qué diferencias existen entre un mock y un stub?
-// mock -> simular respuestas / estructuras de datos para el test.
-// Por qué una prueba unitaria debe ejecutarse de forma aislada?
-
-// Conoces sobre Shallow Render??
-// simular el DOM, se crea una sombra de ese componente para testearlo. 
-
-//////// 6. React ////////
-// sabes que es el vitualDOM?
-// es una version del DOM "light", sirve para reconciliar los cambios y solo cambiar esa parte.
-
-// sabes que es el lifecycle de React? Puedes describirlo?
-// mounting
-// updating
-// unmounting
-
-// qué diferencia hay entre estos??
-class Component extends React.Component {
-  ...
-
-  render() {
-    return (<div>Hi</div>);
-  }
-}// class components
-// HOC
-class Component extends React.PureComponent {
-  ...
-
-  render() {
-    return (<div>Hi</div>);
-  }
-}
-
-const Component = () => {
-  return (<div>Hi</div>);
-}// functional component
-// Hooks
-
-// que consideras que es un hook? con cuales has trabajado??
-// es un "gancho" a las funciones para integrarlas en componentes funcionales
-// useState
-// useContext
-// useReducer
-// useMemo
-// useEffect
-// cuantas veces se imprime el valor de a?
-const Component = ({ a }) => {
-  useEffect(() => {
-    console.log(a);
-  }, []);
-
-  return (<div>Hi</div>);
-};
-
-// Puedes describir que es un HOC?
-// es usado para manejar la logica de los componentes hijos, permite reutilizar funciones.
-// Has trabajado con Context en React?
-// si, para temas de auth.
-// Que papel cumple el Provider al usar Context en React?
+// Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
+// Administrador de paquetes para Node. Sirve para manejar dependencias. Permite descargar y publicar paquetes
+// npm publish -> publicar dependencias
+// npm i/uninstall -> instalar/desinstalar
 // 
-// y el Consumer?
 
-// Sabes para que se sirven los refs en React? 
-// respuesta de react para manipulas elementos del DOM.
-// portals: 
-// crear modales: crear lementos fuera del elemento de la app.
-// suspense: 
-// lazy loading de components.
+// sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
 
-//////// 7. Redux ////////
-
-// Puedes describir el patron arquitectonico que sigue redux?
-// redux se basa en observer. Single Source of Truth -> Store. Reducers, Actions & Types. se despachan acciones que hacen que los reducers retornen un nuevo estado. inmutabilidad.
-// Puedes describir los conceptos base de redux?
-
-// Que usas para conectar redux con un componente React?
-// connect 
-// Sabes que es un middleware?
-// se encarga de interceptar la comunicacion entre dos puntos/
-// redux-thunks. 
-
-//////// 8. CSS ////////
-// flexbox: es una API de CSS para hacer layouts
-// flex-grow? flex-direction
-// flex-direction -> alineacion column, row
-// flex-grow:  relacion de size 
-// grid: ayuda tambien para hcer estructuras mas complejas. crea grillas de filas y columnas y brinda las opciones para operar con ellas. 
-
-// preprocesadores
-// SaSS, Less & Stylus
-// puedes describir como se comportan estos 
-// selectores CSS?
-// top-down
-//  
-
-.div {
-  color: cyan;
-
-  &:hover {
-    color: red
-  }
-}
-
-// HTML
-// HTML Semantico
-// HTML5 -> mejoarar la interpretacion del HTML para el browser
-// aside, header, footer, nav
-
-// a11y
-// AAA -> contrastes con CSS, subtitulos. Se manjean aria-labels -> marcado adicional para ayudar a screen reader, se marca el orden de navegacion para tabIndex.
+// dependencies y devDependencies???
+// dep -> dependencias del proyecto para usar en el proyecto
+// devDep -> solo para desarollo, se omiten en el deploy 
+// peer dependencies??
 
 
-//////// 9. Node.js ////////
+//////// 3. Node.js ////////
 
 // Qué es Node.js??
-
+// es un runtime de JS, para backend. Utiliza el mismo runtima de Chrome (v8). 
 // Qué librerias nativas de Node.js has utilizado??
+// path, workers, fs, childProcess, Process, OS
+
+// Event emmiter
+// se declaran eventos y con el eventEmitter se pueden disparar eventos que son escuchados por suscriptores.
+
+// Event loop
+// Node al ser single thread, las tareas se procesan en este hilo. Para manejar la concurrencia, uno usa metodos asincronos, lo que permite encolar estos procesos mientras se continua la ejecucion del proceso actual.
+// nextTick -> programa una ejecucion para el siguiente espacio disponible en la cola de eventos.
+
+// Profiling
+// 
+
+// Debug
+// Browser & VSCode 
+// 
+
 
 // Cómo manejas variables de entorno y secretos para usarlos en la ejecución de tu programa Node.js?
+// envcmd 
 
 // Express.js
+// SI
 
 // middleware
+// son funciones intermedias que van transformando los datos que reciben.
 
-// Qué diferencia existe entre un path  y un query param??
+//////// 4. Fundamentos ////////
 
-//////// 10. Algoritmia ////////
+// OOP?
+// Si
+// // Herencia, Polimorfismo, Abstraccion & encapsulamiento.
+// Abstracciones: definen propiedades y metodos en comun para las implementaciones. Cada clase que use esa abstraccion debe implementar estos metodos. , clases
+// Imperative programming?
+// 
 
-/*
-John trabaja en una tienda de medias, y tiene un enrome monton de medias que debe emparejar para 
-venderlos. Dado un arreglo de enteros que representan el color de cada media, determine cuantos pares de medias del mismo color hay.
+// FP?
+// Si
+// Utilizar funciones puras, datos inmutables.
 
-Por ejmplo, hay 7 medias con colores 1,2,3 socks=[1,2,1,2,1,3,2]. Hay un par de color 1 y un par de color 2. Hay tres medias "nonas"
-(sin par) de cada color. Por lo tanto, el número de pares es 2.
-*/
+// reactive Programming?
+// orientada por eventos, al detectar un cambio, se dispara un evento, y los que estan suscritos a ese evento realizan las acciones que tengan definidas.
+
+// por qué es mejor componer objetos en lugar de herencia clasica?
+// 
+
+//////// 5. Principios de diseño ////////
+
+// SOLID
+// Permiten hacer un diseño de software desacoplado, limpio y seguro. Se use una abstraccion usando interfaces.
+// DRY
+// 
+
+// Dependency Injection / IoC
+// diseño dependiente de dependencias de alto nivel y no de interfaces de bajo nivel.
+
+class A {
+  constructor() {
+    this.b = new B();
+  }
+}
+
+class A {
+  setB(b: B){
+    this.b = b;
+  }
+}
+
+//////// 6. Unit testing ////////
+
+// Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
+// es una forma de garantizar el comportamiento de una seccion de código. 
+
+// Qué frameworks de Unit Tests conoces??
+// Jest, Mocha
+
+// Que ventajas ofrecen las pruebas unitarias en el proceso de desarrollo de software?
+// para refactors, se puede validar que no se hay afectado el comportamiento del codigo.
+// deteccion temprana de errores.
+// al ser automaticas, aumenta la velocidad en la revision y pueden mejorar el feedback del proceso de CI.
+
+// Por qué una prueba unitaria debe ejecutarse de forma aislada?
+// para no afectar el comportamiento de lo que se esta probando por el efecto de las dependencias.
+// velocidad, al no llamar las dependencias reales, se mejora el tiempo de respuesta.
+
+//////// 7. Misc ////////
+
+// Git (repos, branching strategies, tools)
+// Bitbucket, Github.
+// se crean ramas x feature - al terminar se integra la rama del feature en la rama ppal. 
+// dev -> uat -> master
+// feature -> release -> hotfix.
+
+// CI/CD (Steps, pipelines, tools)
+// Jenkins
+// clone, build, tests (unit, integration, e2e), artifacts, publish.
+
+// NoSQL
+// Firestore & MongoDB.
+// NoSQL -> documents, query & definition.
