@@ -25,42 +25,34 @@ const color2 = colorFactory('red');
 color1.color = 'yellow';
 color2.color = 'purple';
 
-color1.print();//yellow
-color2.print();//red
+color1.print(); // yellow
+color2.print(); // red
 
 // cual es la salida de este código 
 function a() {
   console.log("a");
 }
 var b; // undefined
-a();
-
-b();
+a(); // a
+console.log(b) // undefined
+b(); // b // b is not a function
 b = function() {
-  console.log("b");
+  console.log("b"); 
 }
-//a
-//b // error
 
-// const, let & var
-// var -> global scope in block
-// const & let -> scope local
-// const -> no deja modificar referencia
-// let -> permite reasignar referencia
 // cual es la salida de este object.hi()??
 const foo = 'Ren';
 const bar = 'Stimpy'
 let object = {
   foo: 'Batsy',
   bar: 'Robin',
-  hi: function ()  {
+  hi: function() {
     console.log(`Hi, ${this.foo} & ${this.bar}`)
   }
 };
 
-object.hi();
-//Hi, Batsy & Robin
-// Hi, undefined & undefined
+object.hi(); // Hi, Batsy & Robin // Hi, undefined & undefined
+
 // cual es la salida de estos ciclos?
 const a = { foo: 'bar', baz: 'yell', res: 'bal'};
 const b = ['kool', 'botz', 'tezt'];
@@ -68,24 +60,31 @@ const b = ['kool', 'botz', 'tezt'];
 for(let some in a) {
   console.log(some);
 }
-//foo, baz, res
+// foo, baz, res
+// {foo:'bar'}
+// {baz: 'yell'}
+// {res: 'bal'}
+
 for(let some in b) {
   console.log(some);
 }
-//0,1,2
-// next() => ({ value: 'x', done: true })
+// 0, 1, 2
+// 'kool'
+// 'botz'
+// 'tezt'
+
+// next() => ({ value: 'X', done: true })
 for(let some of a) {
   console.log(some);
-}// a is not iterable
-//
+}// error: a is not iterable
+
 for(let some of b) {
   console.log(some);
 }
-//kool, botz, tezt
-
+// kool, botz, tezt
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
-(function() {
+(function(val) {
   const foo = true;
   let a = 2;
 
@@ -99,27 +98,49 @@ var a = 6;
   }, 0);
   console.log(foo === 1 ? 5 : 'baz');
   a = 'tezt';
-})();
+})(a);
 console.log(a);
-//1, 2, baz, 6, 4, 3
-// puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader = Promise.resolve('some');
-const fileReader = async ()=>"some";
 
-fileReader().then((data) => console.log(data, 'content')); // some, content
+// 1
+// 2 
+// 'baz'
+// 6
+// 4
+// 3
+
+// var, let, const
+// const -> constante no cambia
+console.log(a); // undefined // error a is not defined
+var a = {};
+a.b = 'foo';
+a = [];
+// let -> variables que son reasignables
+// var -> variables globales en el ambito de ejecucion
+
+// puedes completar el codigo para que fileReader tenga este comportamiento?
+function getFileData() {
+  const fileReader = new Promise((resolve, reject) => {
+    resolve('some');
+  });
+  return fileReader;
+}
+
+async function init() {
+  fileReader = await getFileData();
+
+  console.log(fileReader, 'content'); // some, 'content'
+}
+
+const fileReader = (async () => 'some')();
+
+fileReader.then((value) => console.log(value, 'content'));
+//fileReader  = await 
+//.then((data) => console.log(data, 'content'));// 4
+// 3
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
-  value = 0;
-  constructor() {
-  }
-  add(v){
-    this.value+=v;
-    return this;
-  }
-  getTotal(){
-    return this.value;
-  }
+  constructor() {}
 }
 
 const foo = new Foo();
@@ -134,120 +155,96 @@ sum(3,5) // 8
 //////// 2. NPM ////////
 
 // Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
-// Administrador de paquetes para Node. Sirve para manejar dependencias. Permite descargar y publicar paquetes
-// npm publish -> publicar dependencias
-// npm i/uninstall -> instalar/desinstalar
-// 
-
+// Node package manager, permite reutilizar paquetes como express para crear nuevas libs
+// npm install, uninstall, 
 // sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
+// 1.2.3 -> fija
+// ~1.2.3 -> 1.2.x
+// ^ -> igual o mayor sin romper compatibilidad ^1.2.3 -> 2.1.0
+// ^1.2.3 -> 1.x.x
 
 // dependencies y devDependencies???
-// dep -> dependencias del proyecto para usar en el proyecto
-// devDep -> solo para desarollo, se omiten en el deploy 
+// devDependencies: son paquetes usados para la etapa de desarrollo
+// dependencies: son necesarias para el funcionamiento del paquete.
 // peer dependencies??
-
+// 
 
 //////// 3. Node.js ////////
 
 // Qué es Node.js??
-// es un runtime de JS, para backend. Utiliza el mismo runtima de Chrome (v8). 
+//es un entorno de desarrollo que permite ejecutar JS en el backend. 
 // Qué librerias nativas de Node.js has utilizado??
-// path, workers, fs, childProcess, Process, OS
+// fs -> file system
+// http, // http2
+// asserts
+// path
+
+// Streams
+// 
 
 // Event emmiter
-// se declaran eventos y con el eventEmitter se pueden disparar eventos que son escuchados por suscriptores.
+// se pueden crear eventos que respondan a un control, y realizar oeraciones a partir de los eventos emitidos.
 
 // Event loop
-// Node al ser single thread, las tareas se procesan en este hilo. Para manejar la concurrencia, uno usa metodos asincronos, lo que permite encolar estos procesos mientras se continua la ejecucion del proceso actual.
-// nextTick -> programa una ejecucion para el siguiente espacio disponible en la cola de eventos.
+// 
 
 // Profiling
-// 
 
 // Debug
-// Browser & VSCode 
-// 
-
+// docker 
 
 // Cómo manejas variables de entorno y secretos para usarlos en la ejecución de tu programa Node.js?
-// envcmd 
 
 // Express.js
-// SI
-
+// si
 // middleware
-// son funciones intermedias que van transformando los datos que reciben.
+// son acciones de codigo que realizan operaciones antes de la ejecucion de un controlador. Si se tiene un ruta en express, antes de hacer la operacion, se debe verificar los permisos, estas validaciones se pueden hacer usando middlewares.
 
 //////// 4. Fundamentos ////////
 
 // OOP?
-// Si
-// // Herencia, Polimorfismo, Abstraccion & encapsulamiento.
-// Abstracciones: definen propiedades y metodos en comun para las implementaciones. Cada clase que use esa abstraccion debe implementar estos metodos. , clases
+// Si, 
+// Herencia, // Polimorfismo, abstraccion     y encapsulamiento.
+
 // Imperative programming?
-// 
 
 // FP?
-// Si
-// Utilizar funciones puras, datos inmutables.
 
 // reactive Programming?
-// orientada por eventos, al detectar un cambio, se dispara un evento, y los que estan suscritos a ese evento realizan las acciones que tengan definidas.
 
 // por qué es mejor componer objetos en lugar de herencia clasica?
-// 
+
 
 //////// 5. Principios de diseño ////////
 
 // SOLID
-// Permiten hacer un diseño de software desacoplado, limpio y seguro. Se use una abstraccion usando interfaces.
+
 // DRY
-// 
 
 // Dependency Injection / IoC
-// diseño dependiente de dependencias de alto nivel y no de interfaces de bajo nivel.
 
-class A {
-  constructor() {
-    this.b = new B();
-  }
-}
-
-class A {
-  setB(b: B){
-    this.b = b;
-  }
-}
 
 //////// 6. Unit testing ////////
 
 // Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
-// es una forma de garantizar el comportamiento de una seccion de código. 
-
+// si, Mocha 
 // Qué frameworks de Unit Tests conoces??
-// Jest, Mocha
-
+// mocha & chai, Jest 
 // Que ventajas ofrecen las pruebas unitarias en el proceso de desarrollo de software?
-// para refactors, se puede validar que no se hay afectado el comportamiento del codigo.
-// deteccion temprana de errores.
-// al ser automaticas, aumenta la velocidad en la revision y pueden mejorar el feedback del proceso de CI.
+// te esta entregando funcionalidades completas, ya que confirman qu eel codigo funciona.
+// cambios mayores no afectan despliegues.
 
 // Por qué una prueba unitaria debe ejecutarse de forma aislada?
-// para no afectar el comportamiento de lo que se esta probando por el efecto de las dependencias.
-// velocidad, al no llamar las dependencias reales, se mejora el tiempo de respuesta.
+// no es reeelevante probar el codigo de libs, porque no es codigooo gestionado en el proyecto. 
 
 //////// 7. Misc ////////
 
 // Git (repos, branching strategies, tools)
-// Bitbucket, Github.
-// se crean ramas x feature - al terminar se integra la rama del feature en la rama ppal. 
-// dev -> uat -> master
-// feature -> release -> hotfix.
+// si, se crean branches para tareas especificas, que puedan ser desplegadas en ammbientes pra validar su funcionamiento.
 
 // CI/CD (Steps, pipelines, tools)
-// Jenkins
-// clone, build, tests (unit, integration, e2e), artifacts, publish.
+// circleCI, permite ejecutar unit tests
+//  y ejecutar depoyments
 
 // NoSQL
-// Firestore & MongoDB.
-// NoSQL -> documents, query & definition.
+// MongoDB, Firebase (curso de React JS con backend en firebase).
