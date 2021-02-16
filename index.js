@@ -1,17 +1,4 @@
-//////// 1. Generalidades ////////
-
-// Sabes que es una REST API??? Conoces los niveles de madurez de una RESTful API?
-// son peticiones que se pueden hacer a una API. 
-
-// Sabes que diferencia hay entre localStorage y sessionStorage?
-// local: se almacena en el navegador
-// session: 
-
-// Sabes que es CORS?
-// Cross Origin Resource sharing
-// 
-
-//////// 2. Javascript ////////
+//////// 1. Javascript ////////
 
 // cual es la salida de cada console.log
 class Color {
@@ -38,46 +25,36 @@ const color2 = colorFactory('red');
 color1.color = 'yellow';
 color2.color = 'purple';
 
-color1.print(); // "yellow" 
-color2.print(); //  "red"
+color1.print();//yellow
+color2.print();//red
 
 // cual es la salida de este código 
-a(); // "a"
+// hoisting
 function a() {
   console.log("a");
 }
-b(); // undefined // b is not a function
-var b = function() {
+var b; // undefined
+a(); // a
+b(); // b is not a function
+b = function() {
   console.log("b");
 }
 
-// let var const
-function() {
-  console.log(a); // undefined
-  console.log(b);// b is not defined
-  var a = 'some';
-  let b = 'foo';
-  const b = '';
-}
-// const -> constantes, no permiten ser cambiadas
-const b = [];
-b.push('a');//
-// let -> permite reasignar 
-// var -> permite reasignar, pero hace hoisting 
-
 // cual es la salida de este object.hi()??
 const foo = 'Ren';
-const bar = 'Stimpy'
+const bar = 'Stimpy';
+this.foo = 'red';
+this.bar = 'white';
 let object = {
   foo: 'Batsy',
   bar: 'Robin',
-  hi: function() {
+  hi: () => {
     console.log(`Hi, ${this.foo} & ${this.bar}`)
   }
 };
 
-object.hi(); // "Hi, Batsy & Robin"
-// Hi, undefined, undefined
+object.hi();//Hi, Ren & Stimpy
+// Hi, undefined undefined
 
 // cual es la salida de estos ciclos?
 const a = { foo: 'bar', baz: 'yell', res: 'bal'};
@@ -85,21 +62,23 @@ const b = ['kool', 'botz', 'tezt'];
 
 for(let some in a) {
   console.log(some);
-} //
+  a[some]
+  a.foo
+}//error
 // foo, baz, res
+
 for(let some in b) {
   console.log(some);
-} // kool botz tezt
+}// 'kool' 'botz' 'tezt'
 // 0, 1, 2
-// next: () => ({ value: 'x', done: true })
 for(let some of a) {
   console.log(some);
-} // bar yell bal
+}//foo: 'bar', baz: 'yell', res: 'bal'
+// next: () => ({ value: 'X', done: true })
 // a is not iterable
 for(let some of b) {
   console.log(some);
-} //
-// kool, botz, tezt
+} // 'kool' 'botz' 'tezt'
 
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
@@ -117,26 +96,45 @@ var a = 6;
   }, 0);
   console.log(foo === 1 ? 5 : 'baz');
   a = 'tezt';
-})();
+})(); // IIFE
 console.log(a);
 
-//  1 2 3 4 baz 6
-// 1 2 baz 6 4 3
+//1
+//2
+//baz
+//6
+//4
+//3
+
+// 1, 2, baz, 6, 4, 3
 
 // puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader = void 0;
-const fileReader = Promise.resolve('some');
-const fileReader = new Promise((resolve, reject) => resolve('some'));
+const fileReader = new Promise((res, err)=> {
+  res('hola')
+});
+async hola(){
+  const fileReader = await
+}
+
 const fileReader = (async () => 'some')();
+const fileReader = Promise.resolve('some');
 
 fileReader.then((data) => console.log(data, 'content')); // some, content
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
+  
   constructor() {
-    this.suma =0;
-    this.add = (valor)=>{this.suma=this.suma+valor; return this};
-    this.getTotal=()=>{return this.suma}
+    this.sum = 0
+  }
+
+  add(number){
+    this.sum = this.sum+number
+    return this; // 
+  }
+
+  getTotal(){
+    return this.sum
   }
 }
 
@@ -149,188 +147,117 @@ foo.add(1).add(2).add(3).add(4).getTotal();// should return 10
 sum(3)(5) // 8
 sum(3,5) // 8
 
-
-//////// 3. NPM ////////
+//////// 2. NPM ////////
 
 // Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
-// manejador de paquetes de node.
-// npm i
-// npm start
-// npm run
-// npm eject
+// admin de paquetes de node: repo de libs, inicializacion de projectos JS, generacion de modulos.
 
+// npm i
+// npm init
+// npm build
+//
 
 // sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
-// 1.2.3 exacta
-// ^1.2.3 -> 3.2.4 = 3.2.4? // 1.X.X 
-// ~1.2.3 -> // 1.2.X
-// major.minor.patch
+// 1.2.3 -> exacta
+// ^ -> version en adelante: ^1.2.3 -> 4.5.6
+// ~ -> // 1.2.X
+// ^ -> // 1.X.X 
+// major.minor.path
 
 // dependencies y devDependencies???
-// dev -> solo para desarrollo
-// dep -> prod & dev
+// dependencies: se usan en prod
+// devDependencies: solo dev (nodemon)
 
 // peer dependencies??
 // 
 
-//////// 4. HTML ////////
+//////// 3. Node.js ////////
 
-// qué entiendes por HTML semántico??
-// 
-// conoces sobre accesibilidad en ambientes web??
-// 
-// qué es el DOM?? 
+// Qué es Node.js??
+// es un ambiente virtual en el que podemos correr js del lado del servidor. Node.js corre sobre el motor v8 de chrome. non-blocking I/O.
 
+// Qué librerias nativas de Node.js has utilizado??
+// fs
+// http
+// Utils
 
-//////// 5. CSS ////////
-// flexbox: 
-// flex-grow? flex-direction
-// 
-// grid
-// 
-// preprocesadores
-// sass
-// puedes describir como se comportan estos selectores CSS?
-.div {
-  color: cyan;
-
-  &:hover {
-    color: red
-  }
-}
-
-
-//////// 6. React ////////
-// sabes que es el vitualDOM?
-// es como el DOM que genera React para evitar actiualizar el dom real, verificando que solo se actualice el DOM cuando se presente un cambio que le requiera. 
-//
-
-// sabes que es el lifecycle de React? Puedes describirlo?
-// es el ciclo de vida en el que se montan y desmontan los componentes (se ponen o se quitan del DOM).
-// Mount
-// Update
-// Unmount
-
-// qué diferencia hay entre estos??
-class Component extends React.Component {
-  ...
-
-  render() {
-    return (<div>Hi</div>);
-  }
-} // class component
-
-class Component extends React.PureComponent {
-  ...
-
-  render() {
-    return (<div>Hi</div>);
-  }
-}// solo se actualiza cuando hay cambios en los props
-
-const Component = () => {
-  return (<div>Hi</div>);
-}// functional component
-
-// Hooks
-
-// que consideras que es un hook? con cuales has trabajado??
-// son herramientas para agregar funcionalidades de componentes de clase a componentes funcionalidades
-// emulando el lifecycle de los componentes de clase.
-
-// useState
-// useEffect
-// useReducer
-// 
-// useMemo
-// useCallback
-// useRef
-// useContext
-
-// cuantas veces se imprime el valor de a?
-const Component = ({ a }) => {
-  useEffect(() => {
-    console.log(a);
-  },[a]);
-
-  return (<div>Hi</div>);
-};
-
-// Puedes describir que es un HOC?
-// es un componentes que se usa para envolver otros componentes y darles otras funcionalidades.
-
-// Has trabajado con Context en React?
-// Si, se utiliza para facilitar el paso del estado cuando se tiene muchos componentes anidados.
-
-
-// Que papel cumple el Provider al usar Context en React?
-// es el que se pasa el contexto
-// y el Consumer?
-// es el que usa el contexto
-
-// Sabes para que se sirven los refs en React? 
-// es una referencia a cualquier objeto especifico.
-
-
-// portals: 
+// Streams
 // 
 
-// suspense: 
+// Event emmiter
+// un event emmiter es el encargado de emitir y permitir suscripciones a la emision de los eventos. Es interesante para implementar aplicaciones orientadas a eventos.
+
+// Event loop
+// es una funcion de Node.js que se encarga de revisar el call stack y el callback queue. Si el call stack esta vacio, verifica del callback queue que puede ejecutar.
+
+
+// Profiling
 // 
 
-//////// 7. Redux ////////
+// Debug
+// Inspect chrome. 
 
-// Puedes describir el patron arquitectonico que sigue redux?
-// 
-// flux
+// Cómo manejas variables de entorno y secretos para usarlos en la ejecución de tu programa Node.js?
+// env vars.
 
-// Puedes describir los conceptos base de redux?
-// acciones
-// reducers
-// store
-// dispatch
+// Express.js
 
-// Que usas para conectar redux con un componente React?
-//
-// useSelector, useDispatch -> react-redux
-// connect -> react-redux -> connect(mapStateToProps, mapDispatchToProps)(Components)
+// middleware
 
-// Sabes que es un middleware?
-//
-// redux-thunks
-// redux-saga
 
-//////// 8. Fundamentos ////////
+//////// 4. Fundamentos ////////
 
 // OOP?
-// 
-// herencia, polimorfismo, abstraccion y encapsulamiento
+// herencia, polimorfismo, // abstraccion y encapsulamiento
+// crear objetos con diferentes metodos y propiedades.
+
 // Imperative programming?
+// instrucciones que estan explicitamente escritas en el codigo.
 
 // FP?
 
 // reactive Programming?
 
 // por qué es mejor componer objetos en lugar de herencia clasica?
+// depende del size del project: small: hieracy, big composition
 
-
-//////// 9. Principios de diseño ////////
+//////// 5. Principios de diseño ////////
 
 // SOLID
+// single resp.
+// Open/close
+// liskov
+// interface segregation
+// Dependency Injection
 
 // DRY
+// Dont repeat yourself: usar abstracciones para evitar replicacion de codigo.
 
 // Dependency Injection / IoC
+// Es un patron el en cual podemos inyectar alguna dependencia a las clases que lo requieren.
 
-
-//////// 10. Unit testing ////////
+//////// 6. Unit testing ////////
 
 // Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
-// es una prueba para verificar que un componente funcione como se espera
+// No
 // Qué frameworks de Unit Tests conoces??
-// jest, junit.
+// Mockito (Java), Mocka. 
+
 // Que ventajas ofrecen las pruebas unitarias en el proceso de desarrollo de software?
-// te vas asegurando que lo que haces funcione, sin recurrir a validaciones manuales o hacer debugs complicados.
+// entre mayor cobertura, voy a tener mayor confianza en que van a aparecer menos bugs. Verificar funcion a funcion que las funciones respondan a los edge cases como se espera.
 
 // Por qué una prueba unitaria debe ejecutarse de forma aislada?
-// para verificar solo el codigo que se escribe y no codigo externo (dependencias, libs)
+
+
+//////// 7. Misc ////////
+
+// Git (repos, branching strategies, tools)
+// Si, 
+// prod, QA, Dev, sobre dev se crean los branches (fix/dev_name/)
+
+// CI/CD (Steps, pipelines, tools)
+// Gitlab
+
+// NoSQL
+// mayor fuerte con sistemas transaccionales. 
+// MongoDB.
