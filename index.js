@@ -25,16 +25,16 @@ const color2 = colorFactory('red');
 color1.color = 'yellow';
 color2.color = 'purple';
 
-color1.print(); //yellow
-color2.print(); //red
+color1.print(); // yellow
+color2.print(); // red
 
 // cual es la salida de este código 
 function a() {
   console.log("a");
 }
 var b; // undefined
-a(); //Error // a
-b(); //Error -> b is not a function
+a(); // a
+b(); // undefined // b is not a fuction
 b = function() {
   console.log("b");
 }
@@ -45,35 +45,49 @@ const bar = 'Stimpy'
 let object = {
   foo: 'Batsy',
   bar: 'Robin',
-  hi: function() {
+  hi: function() { //
     console.log(`Hi, ${this.foo} & ${this.bar}`)
   }
 };
 
-object.hi(); // Hi Batsy & Robin 
-// Hi , udefined & undefined
+object.hi(); // Hi, Ren & Stimpy // Hi, undefined & undefined
 
 // cual es la salida de estos ciclos?
-const a = { foo: 'bar', baz: 'yell', res: 'bal'};
+const a = { foo: 'bar', baz: 'yell', res: 'bal' };
 const b = ['kool', 'botz', 'tezt'];
 
-for(let some in a) {
-  console.log(some); //[Object object] {foo: bat}
+for (let some in a) {
+  console.log(some);
   a[some];
-}// foo, baz, res
-
-for(let some in b) {
-  console.log(some); // kool, botz, tezt
-}// 0, 1, 2
-
-// next: () => ({ value: 'X', done: true })
-for(let some of a) {
+}
+// bar
+// yell
+// res
+// foo, baz, res
+for (let some in b) {
   console.log(some);
-} // // a is not iterable
+}
+// hool
+// botz
+// tezt
+// 0, 1, 2
 
-for(let some of b) {
+// next: () => ({ value: 'x', done: true });
+for (let some of a) {
   console.log(some);
-}// kool, botz, tezt
+}
+// foo
+// baz
+// res
+// a is not iterable
+
+for (let some of b) {
+  console.log(some);
+}
+// 0
+// 1
+// 2
+// kool, botz, tezt
 
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
@@ -91,23 +105,29 @@ var a = 6;
   }, 0);
   console.log(foo === 1 ? 5 : 'baz');
   a = 'tezt';
-})(); //1, 2, 'baz', 4, 'bar'
-console.log(a);// 6
-// 1, 2, 'baz', 6, 4, 3
+})();
+console.log(a);
+// 1
+// 6
+// 2
+// 4
+// 5
+// bar
+
+// IIFE
+// 1, 2, baz, 6, 4, 3
 
 // puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader = async() => {
+const fileReader = new Promise((resolve, reject) => {
+  resolve(callback('some'));
+});
+const fileReader = new Promise((resolve, reject) => resolve('some'));
+
+const fileReader = (async function() {
   return 'some';
-}
-fileReader().then((data) => console.log(data, 'content'));
+})()
 
-let some = await fileReader()
-console.log(fileReader)
-
-const fileReader = Promise.resolve('some');
-const fileReader = (async() => 'some')();
-const fileReader = new Promise((resolve) => resolve('some'));
- // some, content
+fileReader.then((data) => console.log(data, 'content')); // some, content
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
@@ -115,12 +135,12 @@ class Foo {
     this.value = 0;
   }
 
-  add(x){
-    this.value += x;
+  add(value) {
+    this.value += value;
     return this;
   }
 
-  getTotal(){
+  getTotal() {
     return this.value;
   }
 }
@@ -132,25 +152,24 @@ foo.add(1).add(2).add(3).add(4).getTotal();// should return 10
 // Punto extra!
 // puedes escribir una funcion que tenga este comportamiento ?
 sum(3)(5) // 8
-sum(3,5) // 8
+sum(3, 5) // 8
 
 //////// 2. NPM ////////
 
 // Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
-// Gestor de paquetes de JS.  
-// npm i
-// npm start
-// npm init
-
+// node package manager: es un programa/servicio que guarda libs de node/js para poder usarlas despues.
+// npm init, npm i, npm update,  npm run, npm audit
+// 
 
 // sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
 // 1.2.3 -> 1.2.3
-// ^1.2.3 -> 4.3.5?? 4.3.5 // 1.X.X
-// ~1.2.3 -> 4.3.5?? 1.X.X // 1.2.X 
+// ~1.2.3 -> // 1.2.X
+// ^1.2.3 -> 1.2.X // 1.X.X
 
 // dependencies y devDependencies???
-// dependencias: son las que se usan en prod. las que si llegan al producto final
-// devdep: solo apoyan en el proceso de desarrollo, ej. nodemon
+// dependencies: 
+// devDependencies:
+// basicamente definen si quiero instalar dependencias de dev o no. 
 
 // peer dependencies??
 // 
@@ -158,29 +177,29 @@ sum(3,5) // 8
 //////// 3. Node.js ////////
 
 // Qué es Node.js??
-// permite ejecutar JS en el servidor. 
-// 
+// es un entorno sobre el que se ejecuta JS. sirve para crear servers web, CLI o programas escritos en JS de forma general.
+
 
 // Qué librerias nativas de Node.js has utilizado??
-// express, fs, path, 
-// Process, OS, Cripto, utils
+// fs, http, cripto, URL.  
 
 // Streams
-// manejo de archivos, front
-// request -> se maneja el archivo con blob -> se especifica en los headers respuesta  
-
-// Event emmiter
-// se emiten valores y se obtienen para manejar en otras partes del codigo
-
-// Event loop
 // 
 
+// Event emmiter
+// 
+
+// Event loop
+// es el que se encarga de verificar las instrucciones sync/async durante la ejecucion del programa.
+
 // Profiling
+//
 
 // Debug
+// 
 
 // Cómo manejas variables de entorno y secretos para usarlos en la ejecución de tu programa Node.js?
-// variables de entorno: .env o variables de entorno accedidas desde Process.env
+// pasarlas por consola, .env -> dotenv, Process.env.nopmbreVariable
 
 // Express.js
 
@@ -190,44 +209,43 @@ sum(3,5) // 8
 //////// 4. Fundamentos ////////
 
 // OOP?
-// // Herencia, polimorfismo, encapsulamiento y abstraccion.
+// herencia, polimorfismo, abstraccion, encapsulamiento
 
 // Imperative programming?
 
 // FP?
-// basada en flujo definido.  
+// 
 
 // reactive Programming?
+// 
 
 // por qué es mejor componer objetos en lugar de herencia clasica?
+const a = new Foo(param1, param2);
 
+setA(a) {
+  this.a = a;
+}
 
 //////// 5. Principios de diseño ////////
 
 // SOLID
-// Single res
-// Open/Close
-// Liskov -> posibilidad de reemplazar una clase padre por algun hijo que implemente esta clase sin romper esta aplicacion.
-// Interface inversion
-// Dependency injection
 
 // DRY
-// 
+// es un principio para evitar repetir codigo, si lo voy a usar mas de una vez, lo pongo en un sitio donde me permita reutilizarlo.
 
 // Dependency Injection / IoC
-// es no usar el paquete en la declaracion de la clase, sino pasar a la clase la clase que se necesita usar.
+
 
 //////// 6. Unit testing ////////
 
 // Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
-// sirven para probar partes de la app. aplicar unit test sobre los metodos para verificar que funcionen correctamente.
-// No
+// se verifica que el codigo cumple con su proposito. 
 
 // Qué frameworks de Unit Tests conoces??
-// Jest, phpunit
+// mocha, jest
 
 // Que ventajas ofrecen las pruebas unitarias en el proceso de desarrollo de software?
-// calidad, planeacion del proceso de desarrollo, efectividad al momento de entregar las apps.
+// dismimuye la prob. de errores. ayuda a mejorar la calidad del sw.
 
 // Por qué una prueba unitaria debe ejecutarse de forma aislada?
 
@@ -235,12 +253,10 @@ sum(3,5) // 8
 //////// 7. Misc ////////
 
 // Git (repos, branching strategies, tools)
-// si, 
+// github, bitbucket, gitlab, (main branch, staging, testing, branches for features/fixes.)
 
 // CI/CD (Steps, pipelines, tools)
-//jenkins - pipelines no, 
-// pull - run unit tests - smoke test 
+// github actions (commit al main -> build deploy)
 
 // NoSQL
-// MongoDB, redis, elastic
-// Docs -> key/value -> columnar
+// MongoDB (DynamoDB) -> mongoose 
