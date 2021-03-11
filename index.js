@@ -1,18 +1,9 @@
-//////// 1. Generalidades ////////
-
-// Sabes que es una REST API??? Conoces los niveles de madurez de una RESTful API?
-// es un fragmento de codigo que recibe unas llamadas y dependiendo del verbo realiza las acciones programadas. 
-
-// Sabes que diferencia hay entre localStorage y sessionStorage?
-
-// Sabes que es CORS?
-
-//////// 2. Javascript ////////
+//////// 1. Javascript ////////
 
 // cual es la salida de cada console.log
 class Color {
   constructor(value) {
-    this.color = value;
+    this.color = value; 
   }
 
   print() {
@@ -21,47 +12,50 @@ class Color {
 }
 
 const colorFactory = (value) => {
-  const color = value;
+  const color = value; //red 
 
   return {
-    print: () => console.log(color)
+    print: () => console.log(color) // red
   }
 }
 
-const color1 = new Color('cyan');
+const color1 = new Color('cyan'); 
 const color2 = colorFactory('red');
 
-color1.color = 'yellow'; 
-color2.color = 'purple';
+color1.color = 'yellow';
+color2.color = 'purple'; // { color: purple, hi: () => {}}
 
-color1.print(); // yellow
-color2.print(); // purple // red
+color1.print();  //yellow
+color2.print();  //red
 
 // cual es la salida de este código 
 function a() {
-  console.log("a");
+  console.log("a"); //a
 }
 var b; // undefined
-a(); //a
-b(); //b // b is not a function
+a();// a
+// b();// b is not a function -> error
 b = function() {
-  console.log("b");
+  console.log("b");  // Error 
 }
+b();// b
 
 // cual es la salida de este object.hi()??
+const foo = 'Ren';
+const bar = 'Stimpy';
+
 this.foo = 'Wanda';
 this.bar = 'Vision';
-const foo = 'Ren';
-const bar = 'Stimpy'
+
 let object = {
   foo: 'Batsy',
   bar: 'Robin',
   hi: () => {
-    console.log(`Hi, ${this.foo} & ${this.bar}`)
+    console.log(`Hi, ${this.foo} & ${this.bar}`) //   Hi, Ren & Stimpy
   }
 };
 
-object.hi();//  Batsy Robin // Hi, undefined & undefined
+object.hi(); // // Hi, undefined & undefined
 
 // cual es la salida de estos ciclos?
 const a = { foo: 'bar', baz: 'yell', res: 'bal'};
@@ -69,25 +63,24 @@ const b = ['kool', 'botz', 'tezt'];
 
 for(let some in a) {
   console.log(some);
-  a[some];
-} //foo: 'bar', baz: 'yell', res: 'bal'
-// foo, baz, res
+}
+// foo baz res
 
 for(let some in b) {
   console.log(some);
-}// 'kool', 'botz', 'tezt'
-// 0, 1, 2
+}
+// 0 1 2
 
 for(let some of a) {
   console.log(some);
-}  //foo, baz,  res
-// next: () => ({ value: 'x', done: true })
-// a is not iterable
-
+}
+// Error // a is not iterable
+// next: () => ({ value: 'X', done: true })
 for(let some of b) {
- console.log(some); 
-} //['kool', 'botz', 'tezt']
-// kool, botz, tezt
+  console.log(some);
+}
+// kool botz tezt
+
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
 (function() {
@@ -96,58 +89,59 @@ var a = 6;
 
   console.log(1);
   setTimeout(() => {
-    console.log(foo == 1 ? 3 : 'bar');
+    console.log(foo == 1 ? 3 : 'bar');  //3
   }, 1000);
   console.log(a);
   setTimeout(() => {
-    console.log(4);
+    console.log(4);  //4
   }, 0);
-  console.log(foo === 1 ? 5 : 'baz');
+  console.log(foo === 1 ? 5 : 'baz'); //
   a = 'tezt';
-})(); // IIFE
-console.log(a); 6
-// 1, 2, baz, 6, 4, 3
-
-// que diferencia hay entre let, var y const
-// let : de scope, que se puede modificar
-// var: global, reasignable
-// const: de scope,que no se puede modificar
-const some = {};
-some.fo = 'Hi';
+})();
+console.log(a);//6
+// 1 2 baz 6 4 3
 
 // puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader = () => {
-  fileReader = new Promise 
-
-};
-const fileReader = new Promise((resolve, reject) => {
-  try {
-    resolve('some');
-  } catch(error) {
-    reject(error);
-  }
+//const fileReader = void 0;
+const fileReader = new Promise((res, err) => {
+  res('some');
 });
-const fileReader = Promise.resolve('some');
-Promise.all([prom1, prom2, ...,  prom2]);
-Promise.allSettled([...]);
-Promise.race([.. ]);
+fileReader.then((data) => console.log(data)); // some
 
-fileReader.then((data) => console.log(data, 'content')); // some, content
+async promesa((res, err) => {
+  if(res) 
+    return res('some');
+  if(err)
+    return 'Error';
+})
+const fileReader = (async() => 'some')();
+Promise.race();
+Promise.all();
+
+// let, var, const
+// let -> var de alcance limitado, se elimina apenas se alcanza el final del bloque 
+// var -> variable de bloque, persiostente en la ejecucion del archivo.
+
+//   z1.2.3  1 = Versión exacta, 2 = cambios no extremos 3. Path 
+
+
+function a() {
+  var foo ='3';
+  function b() {
+    var foo = '5';
+
+    return foo;
+  }
+
+  console.log(b());
+}
+b();
+let b = () => {};
+// const -> no cambia valor de asignacion dentro del codigo
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
-  constructor() {
-    suma = ''
-  }
-  add (num){
-  this.suma = this.suma + num 
-  // return 
-// 
-    return this;
-  }
-  getTotal(){
-    return this.suma;
-  }
+  constructor() {}
 }
 
 const foo = new Foo();
@@ -159,177 +153,139 @@ foo.add(1).add(2).add(3).add(4).getTotal();// should return 10
 sum(3)(5) // 8
 sum(3,5) // 8
 
-
-//////// 3. NPM ////////
+//////// 2. NPM ////////
 
 // Conoces que es NPM? que comandos conoces? has escuchado de npm link? npm pack?
+// herramienta para generar interaccion con el codigo en node y la consola que va a interpretar el proyecto.
 
-// sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
-
-// dependencies y devDependencies???
-
-// peer dependencies??
-
-
-//////// 4. HTML ////////
-
-// qué entiendes por HTML semántico??
-
-// conoces sobre accesibilidad en ambientes web??
-
-// qué es el DOM?? 
-
-//////// 5. CSS ////////
-// Has trabajado con flexbox?
-
-// sabes para qué sirve flex-grow? flex-direction?
-
-// Has utilizado grid?? sabes como definir áreas de renderizado??
-
-// preprocesadores
-
-// puedes describir como se comportan estos selectores CSS?
-.div {
-  color: cyan;
-
-  &:hover {
-    color: red
-  }
-}
-
-
-//////// 6. React ////////
-// sabes que es el vitualDOM?
-// genera un proxy del DOM que hace que sea mas rapido detectar las secciones que se deben modificar
-
-
-// sabes que es el lifecycle de React? Puedes describirlo?
-
-
-// qué diferencia hay entre estos??
-class Component extends React.Component {
-  ...
-
-  render() {
-    return (<div>Hi</div>);
-  }
-} // class // stateful
-
-class Component extends React.PureComponent {
-  ...
-  shouldComponentUpdate() {}
-
-  render() {
-    return (<div>Hi</div>);
-  }
-}
-
-const Component = () => {
-  return (<div>Hi</div>);
-} // function // stateless
-
-// Hooks
-
-// que consideras que es un hook? con cuales has trabajado??
-// es una funcion que devuelve o retorna un valor.
-
-// cuantas veces se imprime el valor de a?
-const Component = ({ a }) => {
-  useEffect(() => {
-    console.log(a);
-  });
-
-  return (<div>Hi</div>);
-};
-
-// Puedes describir que es un HOC?
-// componente que recibe otro componente y retorna un nuevo componente.
-
-// Has trabajado con Context en React?
-// sirve para compartir data entre componente
-
-// Que papel cumple el Provider al usar Context en React?
-
-
-// y el Consumer?
-
-// Sabes para que se sirven los refs en React? 
-// se utiliza cuando no se quiere mantener un estado de un componente en el DOM, como un input, y crea una referencia este.
-
-// has trabajado con portals? 
+// npm i 
+// npm init
+// npm build
 // 
 
-// has trabajado con suspense?? sabes para que sirve el fallback?? 
-// sirven para mejorar el performance cuando un compoonente tiene que hacer un procesamiento mayor
+// link: carga paquetes locales en proyectos
 
-// lazy loading
+// sabes que diferencia hay entre 1.2.3, ~1.2.3 y ^1.2.3 al instalar dependencias?
+// 1.2.3 - exacta
+// ~1.2.3 - mayor patch -> 1.2.x
+// ^1.2.3 - mayor minor -> 1.x.x
 
-//////// 7. Redux ////////
+// dependencies y devDependencies???
+// dep: se generan de manera global. 
+// devDep: se generan solo en entorno de desarrollo.
 
-// Puedes describir el patron arquitectonico que sigue redux?
-// flux
+// peer dependencies??
+// 
 
-// Puedes describir los conceptos base de redux?
-// se definen las acciones (que es lo que se quiere ejecutar en el store), el dispatch se encarga de disparar la accion al reducer. el reducer toma la accion, aplica los cambios que corresponda y genera un nuevo estado.
+//////// 3. Node.js ////////
 
-// Que usas para conectar redux con un componente React?
-// mapStateToProps
-// // connect(mapStateToProps, mapDispatchToProps)(Component)
+// Qué es Node.js??
+// es un motor que permite interpretar y ejecutar la escritura de JS. permite trabajo por eventos almacenados.
+// single thread. 
 
-// Sabes que es un middleware?
-// es una funcion que intercepta el dispatcher. 
-// redux-thunks
+// Qué librerias nativas de Node.js has utilizado??
+// utils, http, fs 
+// crypto
 
-//////// 8. Fundamentos ////////
+// Streams
+// 
+
+// Event emmiter
+// 
+
+// Event loop
+// hilo de ejecucion
+// // tick
+
+// Profiling
+// 
+
+// Debug
+// 
+
+// Cómo manejas variables de entorno y secretos para usarlos en la ejecución de tu programa Node.js?
+// // env vars: Process.env.nombreVariable
+// SET nombreVariable='some' & node .
+// dotfiles -> .env
+
+// Express.js
+
+// middleware
+
+
+//////// 4. Fundamentos ////////
 
 // OOP?
+// abstraccion, encapsulamiento, herencia y polimorfismo.
+
+class X {
+  sum(x: int, y: int){
+
+  }
+  sum(x: Imaginary, y: Imaginary) {
+
+  }
+}
+
+x.sum(2,4); // 6
+x.sum(3i, 4i); // 7i
 
 // Imperative programming?
+// son instrucciones de control explicitas en el codigo 
 
 // FP?
+// 
 
 // reactive Programming?
 
 // por qué es mejor componer objetos en lugar de herencia clasica?
 
 
-//////// 9. Principios de diseño arqu ////////
+//////// 5. Principios de diseño ////////
 
 // SOLID
-// 
+// principios que genran una mejor calidad en el codigo.
 
 // DRY
-// don't repeat yourself
+// evita la repeticion de codigo en el desarrollo. se busca hacer una buena abstraccion al iniciar el proceso de desarrollo para evitar duplicar codigo.
 
 // Dependency Injection / IoC
+// 
 
+class X {
+  x: A
 
-//////// 10. Unit testing ////////
-
-// Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
-// si
-
-// Qué frameworks de Unit Tests conoces??
-// jest, testing-library
-
-// Que ventajas ofrecen las pruebas unitarias en el proceso de desarrollo de software?
-// te permite asegurar que el codigo esta cumpliendo con los acceptance criteria de la tarea.
-
-// Por qué una prueba unitaria debe ejecutarse de forma aislada?
-// facilita la escritura de los tests 
-
-// memoization
-const store = {};
-
-const memoize = (values, callback) => {
-  if (store[values]) {
-    return store[values];
+  @Injectable
+  setA(a: A) {
+    this.x = a;
   }
 
-  const result = callback(values);
-  store[values] = result;
+  function sum(val: int) {
+    // this.x = new A(val);
 
-  return result;
-};
+    return this.x;
+  }
+}
 
-useMemo(<Component {...props} />);
+//////// 6. Unit testing ////////
+
+// Podrías definir qué es un Unit Test?? Has utilizado Unit Tests en tu trabajo??
+// es una verificacion en "tiempo real" del codigo escrito, que busca verificar que el codigo sea robusto y confiable.
+
+// Qué frameworks de Unit Tests conoces??
+// mocha, jest
+
+// Que ventajas ofrecen las pruebas unitarias en el proceso de desarrollo de software?
+// code coverage.
+// con el code coverage se puede garantizzar la correctitud del codigo. 
+
+// Por qué una prueba unitaria debe ejecutarse de forma aislada?
+// para garantizar que el codigo escrito cumpla con las especificaciones requeridas.
+
+//////// 7. Misc ////////
+
+// Git (repos, branching strategies, tools)
+
+// CI/CD (Steps, pipelines, tools)
+
+// NoSQL
