@@ -1,15 +1,10 @@
 //////// 1. Generalidades ////////
 
 // Sabes que es una REST API??? Conoces los niveles de madurez de una RESTful API?
-// es una metodologia para integrar el backend con el front, se crean rutas y se van llamando con AJAX.  
 
 // Sabes que diferencia hay entre localStorage y sessionStorage?
-// session: se borra al borrar el tab.
-// local: queda guardado. 
 
 // Sabes que es CORS?
-// Cross origin resource sharing
-// si tienes el front y el back en dominios diferentes, el browser va a notificar que no se pueden consumir recursos de otro dominio. 
 
 //////// 2. Javascript ////////
 
@@ -38,31 +33,24 @@ const color2 = colorFactory('red');
 color1.color = 'yellow';
 color2.color = 'purple';
 
-color1.print(); //yellow
-color2.print();//red
+color1.print();// yellow
+color2.print();// red
 
 // cual es la salida de este código 
+let b; //
+a(); // a
 function a() {
   console.log("a");
 }
-var b; // undefined
-a();//a
-console.log(b);// undefined
-b();//b //b is not a function
+console.log(b);
+b(); // b is not a function
 b = function() {
   console.log("b");
 }
 
-// let, var, const
-// let y var son lo mismo dentro de funciones
-// var hace hoisting, let y const no hacen hoisting
-// const es una constante, si se asigna un valor no se puede cambiar el valor. 
-
 // cual es la salida de este object.hi()??
 const foo = 'Ren';
-const bar = 'Stimpy'
-this.foo = 'Wanda';
-this.bar = 'Vision';
+const bar = 'Stimpy';
 let object = {
   foo: 'Batsy',
   bar: 'Robin',
@@ -71,7 +59,7 @@ let object = {
   }
 };
 
-object.hi();//Hi, Batsy & Robin // Hi, undefined & undefined
+object.hi(); // Hi, undefined undefined
 
 // cual es la salida de estos ciclos?
 const a = { foo: 'bar', baz: 'yell', res: 'bal'};
@@ -79,26 +67,21 @@ const b = ['kool', 'botz', 'tezt'];
 
 for(let some in a) {
   console.log(some);
-  a[some];// values of a
-}
-//bar yell bal
-// foo, baz, res
+} // foo, baz, res
+
 for(let some in b) {
   console.log(some);
-}
-//kool botz tezt
-// 0, 1, 2
-// next = () => ({ value: 'x', done: true })
+} // 0, 1, 2
+
+// next: () => ({ value: 'x', done: true })
 for(let some of a) {
   console.log(some);
-}
-//foo baz res
-// a is not iterable
+} // error
+
 for(let some of b) {
  console.log(some); 
-}
-//0 1 2
-// 'kool', 'botz', 'tezt'
+}// kool, botz, tezt
+
 // en que orden se ejecutan los console.log y que imprimen?
 var a = 6;
 (function() {
@@ -117,45 +100,50 @@ var a = 6;
   a = 'tezt';
 })();
 console.log(a);
+// 1, 2, baz, 6, 4, 3
 
-//1
-//2
-//baz
-//6
-//4
-//3
+// que diferencia hay entre let, var y const
+// var: scope global & local
+// let: scope global, local y de bloque
+// const: no se puede modificar para valores primitivos
+
+const [{ some: { value } }, ...rest] = [{ some: { value: '5'} }, 6, 4, 3];
+// value = 5
+// rest [6,4,3]
 
 // puedes completar el codigo para que fileReader tenga este comportamiento?
-const fileReader = new Promise((resolve,reject)=>{
-  const callback = fetch('https://localhost/api');
+const fileReader = void 0;
 
-  callback.then((data) => { resolve(data) }).catch((error) => {reject(error)});
+const fileReader = new Promise((resolve, reject) => {
+  resolve('some');
 });
+
+const fileReader = Promise.resolve('some');
+
+Promise.allSettled([]);
 
 fileReader.then((data) => console.log(data, 'content')); // some, content
 
 // puedes completar la implementacion de la clase Foo?
 class Foo {
   constructor() {
-    this.value = 0
+    this.counter = 0;
   }
 
-  add(addValue) {
-    this.value = this.value + addValue
+  add(value) {
+    this.counter += value;
 
     return this;
   }
 
   getTotal() {
-    return this.value
+    return this.counter;
   }
 }
 
 const foo = new Foo();
 
 foo.add(1).add(2).add(3).add(4).getTotal();// should return 10
-
-
 
 // Punto extra!
 // puedes escribir una funcion que tenga este comportamiento ?
@@ -177,20 +165,24 @@ sum(3,5) // 8
 //////// 4. HTML ////////
 
 // qué entiendes por HTML semántico??
+// ciertos componentes de tu vista siguen una estructura recomendada: header-> section etc. que hacen mas facil la lectura del html para robots y humanos.
 
 // conoces sobre accesibilidad en ambientes web??
+// son caracteristicas que permiten a las personas con discapacidad interactuar con la web: zoom, colores, contraste
 
 // qué es el DOM?? 
+// es el arbol de nodos que se pueden manipular en tiempo de ejecucion.
 
 //////// 5. CSS ////////
 // Has trabajado con flexbox?
-
+// sirve para manejar las cajas 
 // sabes para qué sirve flex-grow? flex-direction?
-
+// flex-direction
+// flex-grow
 // Has utilizado grid?? sabes como definir áreas de renderizado??
-
+// 
 // preprocesadores
-
+// SaSS
 // puedes describir como se comportan estos selectores CSS?
 .div {
   color: cyan;
@@ -203,12 +195,13 @@ sum(3,5) // 8
 
 //////// 6. React ////////
 // sabes que es el vitualDOM?
-// 
+// es una representacion del DOM manejada en memoria, que tiene la capacidad de determinar en que puntos se han presentado cambios, que facilita la manipulacion del DOM. 
+
 // sabes que es el lifecycle de React? Puedes describirlo?
-// render
-// mounting -> constructor -> render()
-// update -> state o props -> 
-// unmounting -> verificar si se tiene que sacar el compo del DOM.
+// mounting -> componentDidMount
+// Update -> componentDidUpdate
+// unmounting -> componentWillUnmount
+
 // qué diferencia hay entre estos??
 class Component extends React.Component {
   ...
@@ -216,7 +209,7 @@ class Component extends React.Component {
   render() {
     return (<div>Hi</div>);
   }
-} // class component
+} // class component - stateful components
 
 class Component extends React.PureComponent {
   ...
@@ -226,57 +219,75 @@ class Component extends React.PureComponent {
   render() {
     return (<div>Hi</div>);
   }
-} // pure component
+}
 
 const Component = () => {
   return (<div>Hi</div>);
-} // functional component
+} // functional component - stateless components
 
 // Hooks
 
 // que consideras que es un hook? con cuales has trabajado??
+// es una feature de react que te permite interactuar con el lifecycle de react en componentes stateless.
+
+// useState
+// useContext
+// useRef
+// useEffect
 // 
-// useState, useEffect, useContext, useRef, useCallback, useMemo, useReducer
+// useMemo
+// useCallback
+// useLayoutEffect
 
 // cuantas veces se imprime el valor de a?
 const Component = ({ a }) => {
   useEffect(() => {
     console.log(a);
-  });
+  }, [a]);
 
   return (<div>Hi</div>);
-}; // while true
+};// cada que cambie a // 
 
 // Puedes describir que es un HOC?
-// es una funcion que retorna un componente, sirve para encapsular funcionalidades (render props)
+// es un copmponente que recibe un componente y retorna un nuevo componente.
 
 // Has trabajado con Context en React?
-// en vez de pasar props entre componentes anidados, se crea un espacio compartido para poner estos valores
+// sirve para compartir contextos (datos) entre componentes, para evitar pasarlos por props entre componentes.
+
 // Que papel cumple el Provider al usar Context en React?
-// es el quew se encarga de poner lo valores
+// es el que se encarga de definir que contexto va a estar disponible para los componentes hijos.
+
 // y el Consumer?
-// es el que toma el valor del context
+// es el que extrae los valores del contexto proporcionado por un provider.
+
 // Sabes para que se sirven los refs en React? 
-// similar a JQuery, sirve para modificar el DOM. te da acceso al elemento del DOM.
+// sirven para manipular el DOM. se crea una referencia al nodo del DOM. 
+
 // has trabajado con portals? 
 // 
-// has trabajado con suspense?? sabes para que sirve el fallback?? 
-// es para hacer un lazy loading de components.
+
+reactDom.render('#root')
+// has trabajado con suspense?? sabes para que sirve el fallback??
+// sirve para hacer lazy-loading, se puede defimir mientras carga se ponga un elemento diferente provisto en el fallback.
 
 //////// 7. Redux ////////
 
 // Puedes describir el patron arquitectonico que sigue redux?
-// Observer/Subscriber 
-// flux -> 
-// Puedes describir los conceptos base de redux?
-// acciones, dispatch, reducers (slices), store
-// Que usas para conectar redux con un componente React?
-// react-redux hooks: useDispatch, useSelector
-// connect -> mapStateToProps, mapDispatchToProps 
-// Sabes que es un middleware?
-// sirve para hacer un procesamiento antes de un paso del flujo de redux. 
-// redux-thunks
+// flux, unidireccional, se tienen reducers donde se especifica la interaccion entre el state y las acciones.
 
+// Puedes describir los conceptos base de redux?
+// single state, el estado solo se actualiza a causa de una accion, inmutabilidad del estado (se genera un nuevo state por cada acccion), store unico para la app. 
+
+// Que usas para conectar redux con un componente React?
+// react-redux
+// connect(mapStateToProps, mapDispatchToProps)(Component)
+// useSelector, useDispatch
+
+// Sabes que es un middleware?
+// 
+// redux-thunks
+// redux-saga
+// redux-observable
 //////// 8. Fundamentos ////////
 
 // OOP?
